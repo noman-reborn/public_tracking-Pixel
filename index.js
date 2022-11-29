@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 // const sessions = require("express-session");
 const usersRouter = require("./routes/users.router");
 const pixelRouter = require("./routes/pixels.router");
@@ -8,6 +9,8 @@ const app = express();
 require("dotenv").config();
 app.use(express.json());
 app.use(morgan(`dev`));
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 //connecting with mongodb database
 mongoose
   .connect(process.env.MONGO_URI, {
