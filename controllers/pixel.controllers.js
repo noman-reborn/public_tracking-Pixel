@@ -30,7 +30,7 @@ const admin = async (req, res, next) => {
     if (pixels) {
       res.status(200).json({
         success: true,
-        data: pixel,
+        data: pixels,
       });
     } else {
       res.status(404).json({
