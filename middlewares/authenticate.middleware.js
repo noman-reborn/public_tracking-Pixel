@@ -18,14 +18,18 @@ const verifyToken = (req, res, next) => {
       });
     }
 
-    jwt.verify(bearerToken, process.env.TOKEN_KEY, (err, decoded) => {
-      if (err) {
-        return res.status(401).send({ message: "Token is invalid" });
-      } else {
-        req.user = decoded;
-        next();
+    jwt.verify(
+      bearerToken,
+      "kdjfa;sidupasdnf;aksdvuhisdvhisudfhpiusdhfpaiusyfhnakscjnvlkjxcnvlasudhfoiusyhfajksdnvzkjsdvhlksd",
+      (err, decoded) => {
+        if (err) {
+          return res.status(401).send({ message: "Token is invalid" });
+        } else {
+          req.user = decoded;
+          next();
+        }
       }
-    });
+    );
   } catch (err) {
     return res
       .status(500)
