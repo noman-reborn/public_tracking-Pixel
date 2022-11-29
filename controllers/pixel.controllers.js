@@ -35,7 +35,7 @@ const admin = async (req, res, next) => {
     } else {
       res.status(404).json({
         success: false,
-        message: "No pixel created.",
+        message: "No pixel found.",
       });
     }
   } catch (err) {
