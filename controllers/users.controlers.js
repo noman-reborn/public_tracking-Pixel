@@ -37,14 +37,14 @@ const loginUser = async (req, res, next) => {
 
   // req.session.userId = existingUser.id;
   // res.redirect("http://localhost:3000/api/user/dashboard");
-  // res.status(200).json({
-  //   success: true,
-  //   data: {
-  //     userId: existingUser.id,
-  //     email: existingUser.email,
-  //     token: token,
-  //   },
-  // });
+  res.status(200).json({
+    success: true,
+    data: {
+      userId: existingUser.id,
+      email: existingUser.email,
+      token: token,
+    },
+  });
 };
 
 const signupUser = async (req, res, next) => {
