@@ -9,7 +9,7 @@ const {
 } = require("../controllers/pixel.controllers.js");
 const { verifyToken } = require("../middlewares/authenticate.middleware.js");
 
-// pixelRouter.get("/", dashboard);
+pixelRouter.get("/", admin);
 pixelRouter.get("/:pixelId", verifyToken, admin);
 pixelRouter.post("/create", verifyToken, createPixel);
 pixelRouter.patch("/update/:pixelId", verifyToken, updatePixel);
