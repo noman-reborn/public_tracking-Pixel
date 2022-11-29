@@ -67,7 +67,7 @@ const updatePixel = async (req, res, next) => {
 
 const deletePixel = async (req, res, next) => {
   try {
-    const pixel = await Pixel.findById(req.params._id);
+    const pixel = await Pixel.findById(req.params.pixelId);
     if (pixel) {
       await pixel.remove();
       res.status(200).json({
