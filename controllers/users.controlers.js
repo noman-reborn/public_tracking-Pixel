@@ -26,7 +26,7 @@ const loginUser = async (req, res, next) => {
     //Creating jwt token
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
-      process.env.TOKEN_KEY,
+      "kdjfa;sidupasdnf;aksdvuhisdvhisudfhpiusdhfpaiusyfhnakscjnvlkjxcnvlasudhfoiusyhfajksdnvzkjsdvhlksd",
       { expiresIn: "15d" }
     );
   } catch (err) {
