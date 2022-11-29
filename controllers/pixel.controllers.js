@@ -22,6 +22,27 @@ const dashboard = async (req, res, next) => {
     return next(error);
   }
 };
+
+//for admin only.
+const admin = async (req, res, next) => {
+  try {
+    const pixels = await Pixel.find({});
+    if (pixels) {
+      res.status(200).json({
+        success: true,
+        data: pixel,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "No pixel created.",
+      });
+    }
+  } catch (err) {
+    const error = new Error(err);
+    return next(error);
+  }
+};
 //to create the pixel.
 
 const createPixel = async (req, res, next) => {
