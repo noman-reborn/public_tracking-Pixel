@@ -80,7 +80,7 @@ const signupUser = async (req, res, next) => {
   });
 };
 
-const logoutUser = async (req, res) => {
+const logoutUser = async (req, res, next) => {
   const authHeaders = req.headers["authorization"];
   let bearerToken = authHeaders.split(" ")[1];
   console.log("logout controller", bearerToken);
