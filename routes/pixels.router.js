@@ -10,6 +10,6 @@ const { verifyToken } = require("../middlewares/authenticate.middleware.js");
 
 pixelRouter.get("/", dashboard);
 pixelRouter.post("/create", verifyToken, createPixel);
-pixelRouter.patch("/update/:pixelId", updatePixel);
+pixelRouter.patch("/update/:pixelId", verifyToken, updatePixel);
 pixelRouter.post("/delete/:pixelId", verifyToken, deletePixel);
 module.exports = pixelRouter;

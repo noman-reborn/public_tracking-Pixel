@@ -67,18 +67,31 @@ const updatePixel = async (req, res, next) => {
 
 const deletePixel = async (req, res, next) => {
   try {
-    const pixel = await Pixel.findById(req.params.pixelId);
-    if (pixel) {
-      await pixel.remove();
-      res.status(200).json({
-        success: true,
-      });
-    } else {
-      res.status(404).json({
-        success: false,
-        message: "Pixel not found",
-      });
-    }
+    const pixel = await Pixel.findOneAndDelete(
+      { _id: req.params.pixelId },
+      (err, pixel) => {
+        if (err) {
+          const error = new Error(err);
+          return next(error);
+        } else {
+          res.status(200).json({
+            success: true,
+            data: pixel,
+          });
+        }
+      }
+    );
+    // if (pixel) {
+    //   await pixel.remove();
+    //   res.status(200).json({
+    //     success: true,
+    //   });
+    // } else {
+    //   res.status(404).json({
+    //     success: false,
+    //     message: "Pixel not found",
+    //   });
+    // }
   } catch (err) {
     const error = new Error(err);
     return next(error);
