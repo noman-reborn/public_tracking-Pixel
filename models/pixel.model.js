@@ -26,7 +26,7 @@ const pixelSchema = new mongoose.Schema(
         type: Object,
         enum: [defaultEventSchema, standardEventSchema, customEventSchema],
         required: true,
-        unique: true,
+        unique: false,
       },
     ],
   },
