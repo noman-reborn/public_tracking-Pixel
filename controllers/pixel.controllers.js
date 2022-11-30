@@ -6,17 +6,16 @@ const { User } = require("../models/user.model");
 //dashboard with all the past pixel user has created.
 const dashboard = async (req, res, next) => {
   try {
-    const pixels = await User.find({ _id: req.params.userId });
+    const pixels = await Pixel.find({ user_id: req.params.userId });
     if (pixels) {
       res.status(200).json({
         success: true,
-        msg: "pixel has been created successfully",
         data: pixels,
       });
     } else {
       res.status(404).json({
         success: false,
-        message: "No pixel created.",
+        message: "No pixel has been created.",
       });
     }
   } catch (err) {
