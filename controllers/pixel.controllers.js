@@ -100,7 +100,6 @@ const deletePixel = async (req, res, next) => {
           res.status(200).json({
             success: true,
             msg: "pixel has been removed successfully",
-            data: pixel,
           });
         }
       }
