@@ -90,21 +90,18 @@ const updatePixel = async (req, res, next) => {
 
 const deletePixel = async (req, res, next) => {
   try {
-    const pixel = await Pixel.findOneAndDelete(
-      { _id: req.params.pixelId },
-      (err, pixel) => {
-        if (err) {
-          const error = new Error(err);
-          return next(error);
-        } else {
-          res.status(200).json({
-            success: true,
-            msg: "pixel has been removed successfully",
-          });
-        }
+    await Pixel.findOneAndDelete({ _id: req.params.pixelId }, (err, _) => {
+      if (err) {
+        const error = new Error(err);
+        return next(error);
+      } else {
+        res.status(200).json({
+          success: true,
+          msg: "pixel has been removed successfully",
+        });
       }
-    );
-  } catch (err) {
+    });
+  } catch {
     const error = new Error(err);
     return next(error);
   }
