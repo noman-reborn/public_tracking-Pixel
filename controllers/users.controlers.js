@@ -8,8 +8,14 @@ const loginUser = async (req, res, next) => {
   let { username, email, password } = req.body;
   let existingUser = await User.findOne({
     username: username,
+    email: email,
   });
   try {
+    // if (!existingUser.username || !existingUser.email) {
+    //   return res.status(400).json({
+    //     error: "User not found",
+    //   });
+    // }
     const isExists = await bcrypt.compare(password, existingUser?.password);
     console.log("existingUser", isExists, existingUser);
     if (!existingUser || !isExists) {
@@ -18,7 +24,7 @@ const loginUser = async (req, res, next) => {
     }
     console.log(existingUser);
   } catch (error) {
-    const errors = new Error(error);
+    const errors = new Error("wrong details please check at once");
     return next(errors);
   }
 
@@ -31,7 +37,7 @@ const loginUser = async (req, res, next) => {
       { expiresIn: "15d" }
     );
   } catch (err) {
-    const error = new Error(err);
+    const error = new Error("Wrong details please check at onece");
     return next(error);
   }
 
