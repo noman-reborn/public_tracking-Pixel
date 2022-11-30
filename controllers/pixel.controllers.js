@@ -90,21 +90,18 @@ const updatePixel = async (req, res, next) => {
 
 const deletePixel = async (req, res, next) => {
   try {
-    await Pixel.findOneAndDelete({ _id: req.params.pixelId }, (err, _) => {
-      if (err) {
-        const error = new Error(err);
-        return next(error);
-      } else {
-        res.status(200).json({
-          success: true,
-          msg: "pixel has been removed successfully",
-        });
-      }
-    });
+    await Pixel.findOneAndDelete(
+      { _id: req.params.pixelId },
+      { user_id: req.body.user_id }
+    );
   } catch {
-    const error = new Error(err);
-    return next(error);
+    new Error("credentials dont match");
   }
+
+  res.status(200).json({
+    success: true,
+    msg: "pixel has been removed successfully",
+  });
 };
 
 module.exports = {
