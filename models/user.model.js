@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema(
     address: {
       type: addressSchema,
       required: true,
+      unique: false,
     },
   },
   {
