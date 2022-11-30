@@ -62,8 +62,8 @@ const signupUser = async (req, res, next) => {
 
   try {
     await newUser.save();
-  } catch (err) {
-    const error = new Error(err);
+  } catch {
+    const error = new Error("User already exists");
     return next(error);
   }
   let token;
