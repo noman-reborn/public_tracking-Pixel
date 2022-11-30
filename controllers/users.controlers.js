@@ -14,11 +14,12 @@ const loginUser = async (req, res, next) => {
     const error = new Error(err);
     return next(error);
   }
-  if (
-    !existingUser ||
-    (await bcrypt.compare(existingUser.password, password))
-  ) {
-    const error = Error("Wrong details please check at once");
+  if (await bcrypt.compare(existingUser.password, password)) {
+    const error = Error("Password does'nt match,try again");
+    return next(error);
+  }
+  if (!existingUser.username) {
+    const error = new Error("Username does'nt exit,try again");
     return next(error);
   }
   let token;
