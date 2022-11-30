@@ -59,7 +59,7 @@ const createPixel = async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: newPixel,
+    msg: "New Pixel has been created successfully",
   });
 };
 //to update the pixel.

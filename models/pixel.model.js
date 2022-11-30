@@ -8,23 +8,19 @@ const {
 const {
   cusotomEventSchema,
 } = require("../models/schemas/custom.events.schema");
-const User = require("../models/user.model");
+const { User } = require("../models/user.model");
 const pixelSchema = new mongoose.Schema(
   {
-    pixel_id: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     user_id: {
-      type: String,
+      type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
+      unique: false,
     },
     url: {
       type: String,
       required: true,
-      unique: true,
+      unique: false,
     },
 
     events: [
@@ -32,6 +28,7 @@ const pixelSchema = new mongoose.Schema(
         type: Object,
         enum: [defaultEventSchema, standardEventSchema, cusotomEventSchema],
         required: true,
+        unique: false,
       },
     ],
   },
