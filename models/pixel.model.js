@@ -5,9 +5,7 @@ const {
 const {
   standardEventSchema,
 } = require("../models/schemas/standard.events.schema");
-const {
-  cusotomEventSchema,
-} = require("../models/schemas/custom.events.schema");
+const { customEventSchema } = require("../models/schemas/custom.events.schema");
 const { User } = require("../models/user.model");
 const pixelSchema = new mongoose.Schema(
   {
@@ -26,9 +24,9 @@ const pixelSchema = new mongoose.Schema(
     events: [
       {
         type: Object,
-        enum: [defaultEventSchema, standardEventSchema, cusotomEventSchema],
+        enum: [defaultEventSchema, standardEventSchema, customEventSchema],
         required: true,
-        unique: false,
+        unique: true,
       },
     ],
   },

@@ -67,6 +67,7 @@ const updatePixel = async (req, res, next) => {
   try {
     const pixel = await Pixel.findOneAndUpdate(
       { _id: req.params.pixelId },
+      { user_id: req.body.user_id },
       { $push: { events: req.body.events } }
     );
     if (pixel) {

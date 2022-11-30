@@ -6,6 +6,7 @@ const verifyToken = (req, res, next) => {
   try {
     const authHeaders = req.headers["authorization"];
     let bearerToken = authHeaders.split(" ")[1];
+    console.log(bearerToken);
 
     if (!bearerToken) {
       return res
