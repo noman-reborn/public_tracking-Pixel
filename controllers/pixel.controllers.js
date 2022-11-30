@@ -90,12 +90,14 @@ const updatePixel = async (req, res, next) => {
 
 const deletePixel = async (req, res, next) => {
   try {
-    await Pixel.findOneAndDelete(
-      { _id: req.params.pixelId },
-      { user_id: req.body.user_id }
-    );
+    await Pixel.findOneAndDelete({ _id: req.params.pixelId });
+    // if (error) {
+    //   const error = new Error(error);
+    //   return next(error);
+    // }
   } catch {
-    new Error("credentials dont match");
+    const error = new Error("credentials dont match");
+    return next(error);
   }
 
   res.status(200).json({
