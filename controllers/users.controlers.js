@@ -6,26 +6,22 @@ const jwt = require("jsonwebtoken");
 
 const loginUser = async (req, res, next) => {
   let { username, email, password } = req.body;
-
-  let existingUser;
+  let existingUser = await User.findOne({
+    username: username,
+  });
   try {
-    existingUser = await User.findOne({ username: username, email: email });
-  } catch (err) {
-    const error = new Error(err);
-    return next(error);
+    const isExists = await bcrypt.compare(password, existingUser?.password);
+    console.log("existingUser", isExists, existingUser);
+    if (!existingUser || !isExists) {
+      const error = Error("Wrong details please check at once");
+      return next(error);
+    }
+    console.log(existingUser);
+  } catch (error) {
+    const errors = new Error(error);
+    return next(errors);
   }
-  if (await bcrypt.compare(existingUser.password, password)) {
-    const error = Error("Password does'nt match,try again");
-    return next(error);
-  }
-  if (!existingUser.username) {
-    const error = new Error("Username does'nt exit,try again");
-    return next(error);
-  }
-  if (!existingUser.email) {
-    const error = new Error("Email does'nt exit,try again");
-    return next(error);
-  }
+
   let token;
   try {
     //Creating jwt token
@@ -35,13 +31,10 @@ const loginUser = async (req, res, next) => {
       { expiresIn: "15d" }
     );
   } catch (err) {
-    console.log(err);
     const error = new Error(err);
     return next(error);
   }
 
-  // req.session.userId = existingUser.id;
-  // res.redirect("http://localhost:3000/api/user/dashboard");
   res.status(200).json({
     success: true,
     data: {
@@ -51,7 +44,6 @@ const loginUser = async (req, res, next) => {
     },
   });
 };
-
 const signupUser = async (req, res, next) => {
   const { username, email, password, address } = req.body;
   const encryptedPassword = await bcrypt.hash(password, 10);
