@@ -1,15 +1,17 @@
 //requiring all the dependencies.
 
 const { Pixel } = require("../models/pixel.model");
+const { User } = require("../models/user.model");
 
 //dashboard with all the past pixel user has created.
 const dashboard = async (req, res, next) => {
   try {
-    const pixel = await Pixel.find({ _id: req.params.pixelId });
-    if (pixel) {
+    const pixels = await User.find({ _id: req.params.userId });
+    if (pixels) {
       res.status(200).json({
         success: true,
-        data: pixel,
+        msg: "pixel has been created successfully",
+        data: pixels,
       });
     } else {
       res.status(404).json({
@@ -57,22 +59,21 @@ const createPixel = async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    data: newPixel,
   });
 };
 //to update the pixel.
 const updatePixel = async (req, res, next) => {
   try {
-    console.log(req.params);
-
     const pixel = await Pixel.findOneAndUpdate(
       { _id: req.params.pixelId },
       { $push: { events: req.body.events } }
     );
-    console.log("pixel", pixel);
     if (pixel) {
       const updatedPixel = await pixel.save();
       res.status(200).json({
         success: true,
+        msg: "Pixel has been updated",
       });
     } else {
       res.status(404).json({
@@ -97,22 +98,12 @@ const deletePixel = async (req, res, next) => {
         } else {
           res.status(200).json({
             success: true,
+            msg: "pixel has been removed successfully",
             data: pixel,
           });
         }
       }
     );
-    // if (pixel) {
-    //   await pixel.remove();
-    //   res.status(200).json({
-    //     success: true,
-    //   });
-    // } else {
-    //   res.status(404).json({
-    //     success: false,
-    //     message: "Pixel not found",
-    //   });
-    // }
   } catch (err) {
     const error = new Error(err);
     return next(error);
