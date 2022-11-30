@@ -22,6 +22,10 @@ const loginUser = async (req, res, next) => {
     const error = new Error("Username does'nt exit,try again");
     return next(error);
   }
+  if (!existingUser.email) {
+    const error = new Error("Email does'nt exit,try again");
+    return next(error);
+  }
   let token;
   try {
     //Creating jwt token
